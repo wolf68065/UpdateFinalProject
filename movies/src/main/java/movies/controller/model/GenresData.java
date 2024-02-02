@@ -6,12 +6,11 @@ import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import movies.entity.Genres;
-import movies.entity.Movies;
 
 @Data
 @NoArgsConstructor
 public class GenresData {
-	    private Long genre_id;
+	    public Long genre_id;
 		private String Action;
 		private String Comedy;
 		private String Romance;
@@ -31,10 +30,10 @@ public class GenresData {
 		Family = genres.getFamily();
 		Animation = genres.getAnimation();
 		
-		for(Movies movie : genre_id.getMovies()) {
-			movies.add(new MoviesData(movie));
+		// for(Movies movie : genre_id.getMovies()) {
+		// 	movies.add(new MoviesData(movie));
 			
-		}
+		// }
 		
 	}
 @Data

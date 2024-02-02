@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import movies.controller.model.ActorsData;
-import movies.controller.model.MoviesData;
 import movies.dao.ActorsDao;
 import movies.entity.Actors;
-import movies.entity.Movies;
 
 @Service
 public class ActorsService {

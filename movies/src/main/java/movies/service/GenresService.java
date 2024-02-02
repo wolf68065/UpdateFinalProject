@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import movies.controller.model.ActorsData;
 import movies.controller.model.GenresData;
 import movies.dao.GenresDao;
-import movies.entity.Actors;
 import movies.entity.Genres;
 
 @Service
@@ -27,16 +25,13 @@ public class GenresService {
 		return new GenresData(genresDao.save(genres));
 	}
 
-private void setFieldsInGenres(Genres genres, 
-		GenresData genresData) {
+private void setFieldsInGenres(Genres genres, GenresData genresData) {
 	genres.setAction(genresData.getAction());
 	genres.setComedy(genresData.getComedy());
 	genres.setRomance(genresData.getRomance());
 	genres.setDrama(genresData.getDrama());
 	genres.setFamily(genresData.getFamily());
 	genres.setAnimation(genresData.getAnimation());
-	
-	
 }
 
 public Genres findOrCreateGenres(Long genre_id) {
@@ -57,6 +52,7 @@ private Genres findGenresById(Long genre_id) {
 			.orElseThrow(() -> new NoSuchElementException(
 			"Genres with ID=" + genre_id + "was not found."));
 }
+
 @Transactional(readOnly = true)
 public GenresData retrieveGenresById(Long genre_id) {
 	Genres genres = findGenresById(genre_id);

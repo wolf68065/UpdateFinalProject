@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,10 +15,9 @@ import movies.controller.model.ActorsData;
 import movies.controller.model.GenresData;
 import movies.controller.model.MoviesData;
 import movies.dao.MoviesDao;
-import movies.dao.GenresDao;
-import movies.entity.Actors;
 import movies.entity.Genres;
 import movies.entity.Movies;
+
 
 @Service
 public class MoviesService {
@@ -49,13 +47,12 @@ private void setFieldsInMovies(Movies movies, MoviesData moviesData) {
 private Movies findOrCreateMovies(Long movies_id, String title) {
 	Movies movies;
 	
-	if(Objects.isNull(movies_id)) {
+	if(Objects.isNull(movies_id) && title != null) {
 		Optional<Movies> opTitle = moviesDao.findByTitle(title);
-		
-	if(opTitle.isPresent()) {
-		throw new DuplicateKeyException("Title with title" +  title  +  " already exists.");
-	}
-		movies = new Movies();
+		if(opTitle.isPresent()) {
+			throw new DuplicateKeyException("Title with title" +  title  +  " already exists.");
+		}
+	movies = new Movies();
 	}
 	else {
 		movies = findMoviesById(movies_id);
@@ -91,15 +88,17 @@ public void deleteMoviesById(Long movie_id) {
 }
 @Transactional(readOnly = false)
 public ActorsData saveActors(Long movie_id, ActorsData actorsData) {
-	Movies movies= findMoviesById(movie_id);
+	Movies movies = findMoviesById(movie_id);
+	//Add Actors to the database
 	return null;
 }
 @Transactional(readOnly = false)
 public Genres saveGenres(Long movie_id, 
 		GenresData genresData) {
 	Movies movies = findMoviesById(movie_id); 
-	Genres genres = findOrCreateMovies(movie_id, genres.getGenre_id());
-	return movies;	
+	GenresService genresService = new GenresService();
+	Genres genres = genresService.findOrCreateGenres(genresData.genre_id);
+	return genres;	
 
 //	Set<Genres> genres = GenresData.findAllByGenresIn(moviesData.getGenres());
 //	

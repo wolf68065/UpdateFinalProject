@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import movies.controller.model.ActorsData;
 import movies.controller.model.GenresData;
 import movies.service.GenresService;
 
